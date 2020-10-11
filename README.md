@@ -25,3 +25,10 @@ experience of users who want to buy them for the purpose of modifying and making
 marketplaces throw unnecessary listings when you search for a specific model of a car, making the process more 
 time-consuming and difficult. That being said, this project is of interest to me as I want to create the optimal
 experience for individuals looking for their next car to work on.
+
+## User Stories
+- As a user, I want to be able to search for a vehicle with the exact specifications I am interested in.
+- As a user, I want to be able to view a list of vehicles that meet the exact specifications I am interested in.
+- As a user, I want to be able to list my own vehicles up for sale.
+- As a user, I want to be able to see the vehicles I have listed.
+- As a user, I want to be able to mark my vehicles that I listed as sold.
