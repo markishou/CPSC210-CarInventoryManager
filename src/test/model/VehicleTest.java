@@ -11,12 +11,14 @@ class VehicleTest {
 
     @BeforeEach
     void runBefore() {
+
         vehicle = new Vehicle(2002, 190000,"acura",
                 "rsx type s", "clean", true);
     }
 
     @Test
     void testConstructor() {
+
         assertEquals(2002, vehicle.getYear());
         assertEquals(190000, vehicle.getOdometer());
         assertEquals("acura", vehicle.getManufacturer());
@@ -28,17 +30,20 @@ class VehicleTest {
 
     @Test
     void testSetSold() {
+
         vehicle.setSold();
         assertTrue(vehicle.getSold());
     }
 
     @Test
     void testStockToStringStock() {
+
         assertEquals("stock", vehicle.stockToString());
     }
 
     @Test
     void testStockToStringMod() {
+
         vehicle = new Vehicle(2002, 190000,"acura",
                 "rsx type s", "clean", false);
 
@@ -47,18 +52,20 @@ class VehicleTest {
 
     @Test
     void testSoldToStringAvailable() {
+
         assertEquals("available", vehicle.soldToString());
     }
 
     @Test
     void testSoldToStringSold() {
-        vehicle.setSold();
 
+        vehicle.setSold();
         assertEquals("sold", vehicle.soldToString());
     }
 
     @Test
     void testToString() {
+
         assertEquals("2002 acura rsx type s, clean title, 190000km, stock, available", vehicle.toString());
     }
 }

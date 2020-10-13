@@ -1,5 +1,7 @@
 package model;
 
+// Vehicle represents a vehicle object with a year, odometer reading, manufacturer, model, and title. It also represents
+// whether the vehicle is stock or not as well as if it has been sold.
 public class Vehicle {
 
     private int year;
@@ -75,8 +77,8 @@ public class Vehicle {
 
     // EFFECTS: constructs a string that represents a vehicle
     public String toString() {
-        return year + " " + manufacturer + " " + model + ", " + title + " title, " + odometer + "km, " + stockToString() + ", "
-                + soldToString();
+        return year + " " + manufacturer + " " + model + ", " + title + " title, " + odometer + "km, "
+                + stockToString() + ", " + soldToString();
     }
 }
 

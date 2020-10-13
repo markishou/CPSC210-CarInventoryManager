@@ -14,6 +14,7 @@ public class VehiclesTest {
 
     @BeforeEach
     void runBefore() {
+
         vehicles = new Vehicles();
         vehicle = new Vehicle(2002, 190000,"acura",
                 "rsx type s", "clean", true);
@@ -21,6 +22,7 @@ public class VehiclesTest {
 
     @Test
     void testConstructor() {
+
         assertEquals(0, vehicles.getAllListingsSize());
         assertEquals(0, vehicles.getMyListingsSize());
     }
@@ -59,5 +61,39 @@ public class VehiclesTest {
                 "acura", "rsx type s");
 
         assertEquals(0, matches.size());
+    }
+
+    @Test
+    void testAllListingsToString() {
+
+        vehicles.listVehicle(vehicle);
+        List<String> stringVehicles = vehicles.allListingsToString();
+
+        assertEquals("2002 acura rsx type s, clean title, 190000km, stock, available", stringVehicles.get(0));
+    }
+
+    @Test
+    void testAllListingsToStringEmpty() {
+
+        List<String> stringVehicles = vehicles.allListingsToString();
+
+        assertEquals(0, stringVehicles.size());
+    }
+
+    @Test
+    void testMyListingsToString() {
+
+        vehicles.listVehicle(vehicle);
+        List<String> stringVehicles = vehicles.myListingsToString();
+
+        assertEquals("2002 acura rsx type s, clean title, 190000km, stock, available", stringVehicles.get(0));
+    }
+
+    @Test
+    void testMyListingsToStringEmpty() {
+
+        List<String> stringVehicles = vehicles.myListingsToString();
+
+        assertEquals(0, stringVehicles.size());
     }
 }
