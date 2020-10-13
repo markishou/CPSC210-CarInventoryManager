@@ -75,6 +75,30 @@ public class VehiclesTest {
     }
 
     @Test
+    void testSearchListingsCloseMatches() {
+
+        Vehicle vehicle1 = new Vehicle(2004, 100000,"acura",
+                "rsx type s", "clean", true);
+
+        Vehicle vehicle2 = new Vehicle(2003, 100000,"honda",
+                "civic", "clean", true);
+
+        Vehicle vehicle3 = new Vehicle(2003, 100000,"acura",
+                "tsx", "clean", true);
+
+        vehicles.listVehicle(vehicle);
+        vehicles.listVehicle(vehicle1);
+        vehicles.listVehicle(vehicle2);
+        vehicles.listVehicle(vehicle3);
+
+        List<Vehicle> matches = vehicles.searchListings(2002, 2003,
+                "acura", "rsx type s");
+
+        assertEquals(1, matches.size());
+        assertEquals(vehicle, matches.get(0));
+    }
+
+    @Test
     void testSearchListingsNoMatch() {
 
         vehicles.listVehicle(vehicle);
