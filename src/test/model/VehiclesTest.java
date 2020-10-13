@@ -54,6 +54,23 @@ public class VehiclesTest {
     }
 
     @Test
+    void testSearchListingsMultiMatches() {
+
+        Vehicle vehicle1 = new Vehicle(2004, 100000,"acura",
+                "rsx type s", "clean", true);
+
+        vehicles.listVehicle(vehicle);
+        vehicles.listVehicle(vehicle1);
+
+        List<Vehicle> matches = vehicles.searchListings(2002, 2004,
+                "acura", "rsx type s");
+
+        assertEquals(2, matches.size());
+        assertEquals(vehicle, matches.get(0));
+        assertEquals(vehicle1, matches.get(1));
+    }
+
+    @Test
     void testSearchListingsNoMatch() {
 
         vehicles.listVehicle(vehicle);
@@ -64,12 +81,27 @@ public class VehiclesTest {
     }
 
     @Test
-    void testAllListingsToString() {
+    void testAllListingsToStringOne() {
 
         vehicles.listVehicle(vehicle);
         List<String> stringVehicles = vehicles.allListingsToString();
 
         assertEquals("2002 acura rsx type s, clean title, 190000km, stock, available", stringVehicles.get(0));
+    }
+
+    @Test
+    void testAllListingsToStringMulti() {
+
+        Vehicle vehicle1 = new Vehicle(2004, 100000,"acura",
+                "rsx type s", "clean", true);
+
+        vehicles.listVehicle(vehicle);
+        vehicles.listVehicle(vehicle1);
+
+        List<String> stringVehicles = vehicles.allListingsToString();
+
+        assertEquals("2002 acura rsx type s, clean title, 190000km, stock, available", stringVehicles.get(0));
+        assertEquals("2004 acura rsx type s, clean title, 100000km, stock, available", stringVehicles.get(1));
     }
 
     @Test
@@ -81,12 +113,27 @@ public class VehiclesTest {
     }
 
     @Test
-    void testMyListingsToString() {
+    void testMyListingsToStringOne() {
 
         vehicles.listVehicle(vehicle);
         List<String> stringVehicles = vehicles.myListingsToString();
 
         assertEquals("2002 acura rsx type s, clean title, 190000km, stock, available", stringVehicles.get(0));
+    }
+
+    @Test
+    void testMyListingsToStringMulti() {
+
+        Vehicle vehicle1 = new Vehicle(2004, 100000,"acura",
+                "rsx type s", "clean", true);
+
+        vehicles.listVehicle(vehicle);
+        vehicles.listVehicle(vehicle1);
+
+        List<String> stringVehicles = vehicles.myListingsToString();
+
+        assertEquals("2002 acura rsx type s, clean title, 190000km, stock, available", stringVehicles.get(0));
+        assertEquals("2004 acura rsx type s, clean title, 100000km, stock, available", stringVehicles.get(1));
     }
 
     @Test
