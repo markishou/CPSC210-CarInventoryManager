@@ -59,8 +59,12 @@ public class VehiclesTest {
         Vehicle vehicle1 = new Vehicle(2004, 100000,"acura",
                 "rsx type s", "clean", true);
 
+        Vehicle vehicle2 = new Vehicle(2006, 100000,"acura",
+                "rsx type s", "clean", true);
+
         vehicles.listVehicle(vehicle);
         vehicles.listVehicle(vehicle1);
+        vehicles.listVehicle(vehicle2);
 
         List<Vehicle> matches = vehicles.searchListings(2002, 2004,
                 "acura", "rsx type s");
