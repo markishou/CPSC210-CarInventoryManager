@@ -104,7 +104,7 @@ public class CarInventoryApp {
         }
     }
 
-
+    // REQUIRES: input must be lower case
     // EFFECTS: displays matches for search
     private void searchInventory() {
 
@@ -133,6 +133,7 @@ public class CarInventoryApp {
         }
     }
 
+    // REQUIRES: input must be lower case
     // MODIFIES: this
     // EFFECTS: lists car for sale with user inputted specifications
     private void listCar() {
