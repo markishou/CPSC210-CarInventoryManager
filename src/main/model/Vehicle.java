@@ -1,8 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+import persistance.Writable;
+
 // Vehicle represents a vehicle object with a year, odometer reading, manufacturer, model, and title. It also represents
 // whether the vehicle is stock or not as well as if it has been sold.
-public class Vehicle {
+public class Vehicle implements Writable {
 
     private int year;
     private int odometer;
@@ -79,6 +82,20 @@ public class Vehicle {
     public String toString() {
         return year + " " + manufacturer + " " + model + ", " + title + " title, " + odometer + "km, "
                 + stockToString() + ", " + soldToString();
+    }
+
+    @Override
+    public JSONObject toJson() {
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("year", year);
+        jsonObject.put("odometer", odometer);
+        jsonObject.put("manufacturer", manufacturer);
+        jsonObject.put("model", model);
+        jsonObject.put("title", title);
+        jsonObject.put("stock", stock);
+
+        return jsonObject;
     }
 }
 

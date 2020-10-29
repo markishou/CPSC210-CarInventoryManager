@@ -1,0 +1,8 @@
+{"vehicles": [{
+    "odometer": 100000,
+    "year": 2005,
+    "model": "corolla",
+    "title": "clean",
+    "stock": true,
+    "manufacturer": "toyota"
+}]}

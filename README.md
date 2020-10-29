@@ -31,3 +31,5 @@ experience for individuals looking for their next car to work on.
 - As a user, I want to be able to view a list of vehicles that meet the exact specifications I am interested in.
 - **As a user, I want to be able to list my own vehicles up for sale.**
 - As a user, I want to be able to see the vehicles I have listed.
+- As a user, I want save my vehicle listings to file
+- As a user, I want to be able to load my listings from file

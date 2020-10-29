@@ -2,12 +2,20 @@ package ui;
 
 import model.Vehicle;
 import model.Vehicles;
+import persistance.JsonReader;
+import persistance.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 // Car inventory application with a console based ui
 public class CarInventoryApp {
+
+    private static final String JSON_STORE = "./data/myListings.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     private Vehicle listedCar;
     private Vehicle listedCar2;
@@ -17,7 +25,9 @@ public class CarInventoryApp {
     private Scanner input;
 
     // EFFECTS: runs the car inventory app
-    public CarInventoryApp() {
+    public CarInventoryApp() throws FileNotFoundException {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runInventory();
     }
 
@@ -85,6 +95,8 @@ public class CarInventoryApp {
         System.out.println("\t2 -> view inventory");
         System.out.println("\t3 -> list my car for sale");
         System.out.println("\t4 -> view my listings");
+        System.out.println("\ts -> save my listings to file");
+        System.out.println("\tl -> load my listings from file");
         System.out.println("\tq -> quit");
     }
 
@@ -99,6 +111,10 @@ public class CarInventoryApp {
             listCar();
         } else if (command.equals("4")) {
             viewMyListings();
+        } else if (command.equals("s")) {
+            saveMyListings();
+        } else if (command.equals("l")) {
+            loadMyListings();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -182,6 +198,41 @@ public class CarInventoryApp {
             return false;
         } else {
             return true;
+        }
+    }
+
+    // *** JsonSerializationDemo was referenced for saveMyListings() and loadMyListings()
+    // EFFECTS: saves myListings to file
+    private void saveMyListings() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(carInventory);
+            jsonWriter.close();
+            System.out.println("Saved your listings to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // EFFECTS: loads myListings from file
+    private void loadMyListings() {
+        try {
+            carInventory = jsonReader.read();
+
+            listedCar = new Vehicle(2002, 190000, "acura",
+                    "rsx type s", "clean", true);
+            listedCar2 = new Vehicle(2004, 100000, "acura",
+                    "rsx type s", "clean", false);
+            listedCar3 = new Vehicle(2002, 80000, "nissan",
+                    "silvia s15", "clean", true);
+
+            carInventory.listToAllListings(listedCar);
+            carInventory.listToAllListings(listedCar2);
+            carInventory.listToAllListings(listedCar3);
+
+            System.out.println("Loaded your listings from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 

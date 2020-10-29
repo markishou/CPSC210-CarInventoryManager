@@ -1,0 +1,18 @@
+{"vehicles": [
+    {
+        "odometer": 190000,
+        "year": 2002,
+        "model": "rsx type s",
+        "title": "clean",
+        "stock": true,
+        "manufacturer": "acura"
+    },
+    {
+        "odometer": 100000,
+        "year": 2004,
+        "model": "rsx type s",
+        "title": "clean",
+        "stock": true,
+        "manufacturer": "acura"
+    }
+]}

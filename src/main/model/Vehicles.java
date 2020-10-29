@@ -1,10 +1,15 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistance.Writable;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 // a class that represents all listings available as well as all of the user's listings
-public class Vehicles {
+public class Vehicles implements Writable {
 
     private List<Vehicle> allListings;
     private List<Vehicle> myListings;
@@ -81,5 +86,30 @@ public class Vehicles {
         }
 
         return stringVehicles;
+    }
+
+    // EFFECTS: returns myListings as an unmodifiable list
+    public List<Vehicle> getMyListings() {
+        return Collections.unmodifiableList(myListings);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        //jsonObject.put("name", "My Listings");
+        jsonObject.put("vehicles", vehiclesToJson());
+        return jsonObject;
+    }
+
+    // *** from JsonSerializationDemo WorkRoom method
+    // EFFECTS: returns vehicles in my listings as a JSON Array
+    private JSONArray vehiclesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Vehicle v: myListings) {
+            jsonArray.put(v.toJson());
+        }
+
+        return jsonArray;
     }
 }
