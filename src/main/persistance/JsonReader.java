@@ -18,6 +18,7 @@ public class JsonReader {
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
+
         this.source = source;
     }
 
@@ -59,6 +60,7 @@ public class JsonReader {
     // MODIFIES: vehicles
     // EFFECTS: parses vehicle from JSON object and adds it to vehicles
     private void addVehicle(Vehicles vehicles, JSONObject jsonObject) {
+
         int year = jsonObject.getInt("year");
         int odometer = jsonObject.getInt("odometer");
         String manufacturer = jsonObject.getString("manufacturer");
