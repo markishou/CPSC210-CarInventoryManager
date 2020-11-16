@@ -93,6 +93,10 @@ public class Vehicles implements Writable {
         return Collections.unmodifiableList(myListings);
     }
 
+    public List<Vehicle> getAllListings() {
+        return allListings;
+    }
+
     @Override
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
