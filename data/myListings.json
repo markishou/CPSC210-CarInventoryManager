@@ -1,8 +1,8 @@
 {"vehicles": [{
     "odometer": 100000,
-    "year": 2005,
-    "model": "corolla",
+    "year": 1990,
+    "model": "240sx",
     "title": "clean",
     "stock": true,
-    "manufacturer": "toyota"
+    "manufacturer": "nissan"
 }]}
