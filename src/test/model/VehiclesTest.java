@@ -171,4 +171,18 @@ public class VehiclesTest {
 
         assertEquals(0, stringVehicles.size());
     }
+
+    @Test
+    void testGetAllListings() {
+        Vehicle vehicle1 = new Vehicle(2004, 100000,"acura",
+                "rsx type s", "clean", true);
+
+        vehicles.listVehicle(vehicle);
+        vehicles.listVehicle(vehicle1);
+        List<Vehicle> allListings = vehicles.getAllListings();
+
+        assertEquals(2, allListings.size());
+        assertEquals(vehicle, allListings.get(0));
+        assertEquals(vehicle1, allListings.get(1));
+    }
 }

@@ -93,6 +93,7 @@ public class Vehicles implements Writable {
         return Collections.unmodifiableList(myListings);
     }
 
+    // EFFECTS: returns allListings
     public List<Vehicle> getAllListings() {
         return allListings;
     }

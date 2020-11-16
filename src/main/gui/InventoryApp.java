@@ -89,7 +89,7 @@ public class InventoryApp extends JFrame implements ActionListener {
     }
 
     // EFFECTS: Creates a layout for buttons used in the gui
-    // reference from ListDemo: https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
+    // used ListDemo as a reference: https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
     public void createButtonLayout() {
         listVehicle = new JButton("List Vehicle");
         listVehicle.addActionListener(this);
@@ -228,3 +228,5 @@ public class InventoryApp extends JFrame implements ActionListener {
         new InventoryApp();
     }
 }
+
+//TODO add audiovisual feature 
