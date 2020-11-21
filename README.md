@@ -33,3 +33,8 @@ experience for individuals looking for their next car to work on.
 - As a user, I want to be able to see the vehicles I have listed.
 - As a user, I want save my vehicle listings to file
 - As a user, I want to be able to load my listings from file
+
+## GUI User Stories
+- As a user, I want to be able to list a vehicle and have it appear in the list of vehicles.
+- As a user, I want the option to view the vehicles I listed as well as all the current vehicle listings.
+- As a user, I want to be able to save and load my listings anytime I'm using the application.

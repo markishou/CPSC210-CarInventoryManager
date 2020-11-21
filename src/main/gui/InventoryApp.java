@@ -32,6 +32,7 @@ public class InventoryApp extends JFrame implements ActionListener {
     private JButton viewMyListings;
     private JButton saveMyListings;
     private JButton loadMyListings;
+    private JButton viewAllListings;
 
     private JTextField yearField = new JTextField(10);
     private JTextField odometerField = new JTextField(10);
@@ -47,12 +48,15 @@ public class InventoryApp extends JFrame implements ActionListener {
     private JLabel titleLabel = new JLabel("clean or rebuilt:");
     private JLabel stockLabel = new JLabel("Is it modified: 1 -> yes | Any char -> no");
 
+    //private String soundFile = "./Sound/Button.wav";
+
+
     // EFFECTS: opens a Car inventory gui
     public InventoryApp() {
         super("Car Inventory");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(600, 600));
         createInventory();
         createInputLayout();
@@ -97,6 +101,9 @@ public class InventoryApp extends JFrame implements ActionListener {
         viewMyListings = new JButton("View my listings");
         viewMyListings.addActionListener(new MyListingsListener());
 
+        viewAllListings = new JButton("View all listings");
+        viewAllListings.addActionListener(new AllListingsListener());
+
         saveMyListings = new JButton("Save my listings");
         saveMyListings.addActionListener(new SaveListingsListener());
 
@@ -104,9 +111,11 @@ public class InventoryApp extends JFrame implements ActionListener {
         loadMyListings.addActionListener(new LoadListingsListener());
 
         JPanel buttonPane = new JPanel();
+        buttonPane.setBackground(Color.lightGray);
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.Y_AXIS));
         buttonPane.add(listVehicle);
         buttonPane.add(viewMyListings);
+        buttonPane.add(viewAllListings);
         buttonPane.add(saveMyListings);
         buttonPane.add(loadMyListings);
         add(buttonPane);
@@ -131,6 +140,19 @@ public class InventoryApp extends JFrame implements ActionListener {
         add(inputPane, BorderLayout.BEFORE_FIRST_LINE);
     }
 
+    //EFFECTS: creates a new JFrame and displays an image
+    public void displayImage(String fileName) {
+        JFrame listedImage = new JFrame();
+        listedImage.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        listedImage.setPreferredSize(new Dimension(300, 300));
+        ImageIcon image = new ImageIcon(fileName);
+        JLabel imageLabel = new JLabel(image);
+        listedImage.add(imageLabel);
+        listedImage.pack();
+        listedImage.setLocationRelativeTo(null);
+        listedImage.setVisible(true);
+    }
+
     // EFFECTS: lists vehicle based on the inputted specifications
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -144,6 +166,8 @@ public class InventoryApp extends JFrame implements ActionListener {
         Vehicle vehicle = new Vehicle(year, odometer, manufacturer, model, title, stock);
         inventory.listVehicle(vehicle);
         listModel.addElement(vehicle.toString());
+
+        displayImage("./images/success.jpg");
 
         yearField.setText("");
         odometerField.setText("");
@@ -175,6 +199,19 @@ public class InventoryApp extends JFrame implements ActionListener {
         }
     }
 
+    // action listener for viewing all listings
+    class AllListingsListener implements ActionListener {
+
+        // EFFECTS: displays all listings
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            listModel.clear();
+            for (Vehicle v: inventory.getAllListings()) {
+                listModel.addElement(v.toString());
+            }
+        }
+    }
+
     // action listener for saving user's listings
     class SaveListingsListener implements ActionListener {
 
@@ -185,6 +222,7 @@ public class InventoryApp extends JFrame implements ActionListener {
                 jsonWriter.open();
                 jsonWriter.write(inventory);
                 jsonWriter.close();
+                displayImage("./images/saved.jpg");
                 System.out.println("Saved your listings to " + JSON_STORE);
             } catch (FileNotFoundException ex) {
                 System.out.println("Unable to write to file: " + JSON_STORE);
@@ -195,6 +233,7 @@ public class InventoryApp extends JFrame implements ActionListener {
     // action listener for loading user's listings
     class LoadListingsListener implements ActionListener {
 
+        // EFFECTS: loads user's listings from Json file
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
@@ -217,6 +256,8 @@ public class InventoryApp extends JFrame implements ActionListener {
                     listModel.addElement(v.toString());
                 }
 
+                displayImage("./images/loaded.jpg");
+
                 System.out.println("Loaded your listings from " + JSON_STORE);
             } catch (IOException ex) {
                 System.out.println("Unable to read from file: " + JSON_STORE);
@@ -228,5 +269,3 @@ public class InventoryApp extends JFrame implements ActionListener {
         new InventoryApp();
     }
 }
-
-//TODO add audiovisual feature 

@@ -1,8 +1,8 @@
 {"vehicles": [{
-    "odometer": 100000,
-    "year": 1990,
-    "model": "240sx",
+    "odometer": 2,
+    "year": 2,
+    "model": "m",
     "title": "clean",
     "stock": true,
-    "manufacturer": "nissan"
+    "manufacturer": "acura"
 }]}
