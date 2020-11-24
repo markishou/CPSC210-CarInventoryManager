@@ -44,3 +44,10 @@ experience for individuals looking for their next car to work on.
 - The Vehicle class, and the constructor now have a robust design. This is because I created an exception for the
 previous requires clause of the constructor that specified odometer cannot be negative. I also wrote tests for the 
 exception to ensure that it was working properly.
+
+## Phase 4: Task 3
+- create a superclass for myListings and allListings so that there is less duplicated code. This is because, currently, 
+the Vehicles class holds two lists of vehicles which have methods with the same functionality which can be refactored to
+a super class and then have myListings and allListings extend it.
+- Can also refactor methods like searchListings() in vehicles for readability. For instance, I can make a new method in
+place for the if statements conditional as it is quite difficult to read.
