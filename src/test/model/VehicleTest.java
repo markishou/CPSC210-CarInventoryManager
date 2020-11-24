@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.NegativeMileage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +13,16 @@ class VehicleTest {
     @BeforeEach
     void runBefore() {
 
-        vehicle = new Vehicle(2002, 190000,"acura",
-                "rsx type s", "clean", true);
+        try {
+            vehicle = new Vehicle(2002, 190000,"acura",
+                    "rsx type s", "clean", true);
+        } catch (NegativeMileage negativeMileage) {
+            System.out.println("Mileage can not be negative...");
+        }
     }
 
     @Test
-    void testConstructor() {
+    void testConstructorContents() {
 
         assertEquals(2002, vehicle.getYear());
         assertEquals(190000, vehicle.getOdometer());
@@ -26,6 +31,28 @@ class VehicleTest {
         assertEquals("clean", vehicle.getTitle());
         assertTrue(vehicle.getStock());
         assertFalse(vehicle.getSold());
+    }
+
+    @Test
+    void testConstructorExceptionThrown() {
+        try {
+            Vehicle v = new Vehicle(2002, -90000,"acura",
+                    "rsx type s", "clean", true);
+            fail();
+        } catch (NegativeMileage negativeMileage) {
+            // Success
+        }
+    }
+
+    @Test
+    void testConstructorExceptionNotThrown() {
+        try {
+            Vehicle v = new Vehicle(2002, 90000,"acura",
+                    "rsx type s", "clean", true);
+            // success
+        } catch (NegativeMileage negativeMileage) {
+            fail();
+        }
     }
 
     @Test
@@ -44,8 +71,12 @@ class VehicleTest {
     @Test
     void testStockToStringMod() {
 
-        vehicle = new Vehicle(2002, 190000,"acura",
-                "rsx type s", "clean", false);
+        try {
+            vehicle = new Vehicle(2002, 190000,"acura",
+                    "rsx type s", "clean", false);
+        } catch (NegativeMileage negativeMileage) {
+            System.out.println("Mileage can not be negative...");
+        }
 
         assertEquals("modified", vehicle.stockToString());
     }

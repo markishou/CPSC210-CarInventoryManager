@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.NegativeMileage;
 import org.json.JSONObject;
 import persistance.Writable;
 
@@ -17,12 +18,17 @@ public class Vehicle implements Writable {
 
     // REQUIRES: odometer >= 0, title must be either "clean" or "rebuilt", all string inputs must be lowercase
     // EFFECTS: creates a vehicle with the passed in specifications.
-    public Vehicle(int year, int odometer, String manufacturer, String model, String title, boolean stock) {
+    public Vehicle(int year, int odometer, String manufacturer, String model, String title, boolean stock)
+            throws NegativeMileage {
+
+        if (odometer <= 0) {
+            throw new NegativeMileage();
+        }
         this.year = year;
         this.odometer = odometer;
-        this.manufacturer = manufacturer;
-        this.model = model;
-        this.title = title;
+        this.manufacturer = manufacturer.toLowerCase();
+        this.model = model.toLowerCase();
+        this.title = title.toLowerCase();
         this.stock = stock;
     }
 
@@ -54,7 +60,6 @@ public class Vehicle implements Writable {
         return this.sold;
     }
 
-    // REQUIRES: sold is not true
     // EFFECTS: vehicle listing is sold
     public void setSold() {
         this.sold = true;

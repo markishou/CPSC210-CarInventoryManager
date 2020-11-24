@@ -1,5 +1,6 @@
 package persistance;
 
+import exceptions.NegativeMileage;
 import model.Vehicle;
 import model.Vehicles;
 import org.json.JSONArray;
@@ -67,7 +68,12 @@ public class JsonReader {
         String model = jsonObject.getString("model");
         String title = jsonObject.getString("title");
         boolean stock = jsonObject.getBoolean("stock");
-        Vehicle v = new Vehicle(year,odometer,manufacturer,model,title,stock);
+        Vehicle v = null;
+        try {
+            v = new Vehicle(year,odometer,manufacturer,model,title,stock);
+        } catch (NegativeMileage negativeMileage) {
+            System.out.println("Mileage can not be negative...");
+        }
         vehicles.listVehicle(v);
     }
 

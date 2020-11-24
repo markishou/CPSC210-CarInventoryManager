@@ -1,5 +1,6 @@
 package gui;
 
+import exceptions.NegativeMileage;
 import model.Vehicle;
 import model.Vehicles;
 import persistance.JsonReader;
@@ -68,12 +69,17 @@ public class InventoryApp extends JFrame implements ActionListener {
 
     // EFFECTS: creates a scrollable pane for existing car inventory
     public void createInventory() {
-        listedCar = new Vehicle(2002, 190000, "acura",
-                "rsx type s", "clean", true);
-        listedCar2 = new Vehicle(2004, 100000, "acura",
-                "rsx type s", "clean", false);
-        listedCar3 = new Vehicle(2002, 80000, "nissan",
-                "silvia s15", "clean", true);
+        try {
+            listedCar = new Vehicle(2002, 190000, "acura",
+                    "rsx type s", "clean", true);
+            listedCar2 = new Vehicle(2004, 100000, "acura",
+                    "rsx type s", "clean", false);
+            listedCar3 = new Vehicle(2002, 80000, "nissan",
+                    "silvia s15", "clean", true);
+        } catch (NegativeMileage negativeMileage) {
+            System.out.println("Mileage can not be negative...");
+        }
+
         inventory = new Vehicles();
         inventory.listToAllListings(listedCar);
         inventory.listToAllListings(listedCar2);
@@ -163,7 +169,14 @@ public class InventoryApp extends JFrame implements ActionListener {
         String title = titleField.getText();
         boolean stock = stockToBool(stockField.getText());
 
-        Vehicle vehicle = new Vehicle(year, odometer, manufacturer, model, title, stock);
+        Vehicle vehicle = null;
+
+        try {
+            vehicle = new Vehicle(year, odometer, manufacturer, model, title, stock);
+        } catch (NegativeMileage negativeMileage) {
+            System.out.println("Mileage can not be negative...");
+        }
+
         inventory.listVehicle(vehicle);
         listModel.addElement(vehicle.toString());
 
@@ -261,6 +274,8 @@ public class InventoryApp extends JFrame implements ActionListener {
                 System.out.println("Loaded your listings from " + JSON_STORE);
             } catch (IOException ex) {
                 System.out.println("Unable to read from file: " + JSON_STORE);
+            } catch (NegativeMileage nm) {
+                System.out.println("Mileage can not be negative...");
             }
         }
     }

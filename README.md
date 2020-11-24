@@ -38,3 +38,9 @@ experience for individuals looking for their next car to work on.
 - As a user, I want to be able to list a vehicle and have it appear in the list of vehicles.
 - As a user, I want the option to view the vehicles I listed as well as all the current vehicle listings.
 - As a user, I want to be able to save and load my listings anytime I'm using the application.
+
+## Phase 4: Task 2
+- For phase 4 I chose to test and design the Vehicle class to be robust.
+- The Vehicle class, and the constructor now have a robust design. This is because I created an exception for the
+previous requires clause of the constructor that specified odometer cannot be negative. I also wrote tests for the 
+exception to ensure that it was working properly.

@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.NegativeMileage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +17,12 @@ public class VehiclesTest {
     void runBefore() {
 
         vehicles = new Vehicles();
-        vehicle = new Vehicle(2002, 190000,"acura",
-                "rsx type s", "clean", true);
+        try {
+            vehicle = new Vehicle(2002, 190000,"acura",
+                    "rsx type s", "clean", true);
+        } catch (NegativeMileage negativeMileage) {
+            System.out.println("Mileage can not be negative...");
+        }
     }
 
     @Test
@@ -56,40 +61,48 @@ public class VehiclesTest {
     @Test
     void testSearchListingsMultiMatches() {
 
-        Vehicle vehicle1 = new Vehicle(2004, 100000,"acura",
-                "rsx type s", "clean", true);
+        Vehicle vehicle1;
+        Vehicle vehicle2;
+        try {
+            vehicle1 = new Vehicle(2004, 100000,"acura",
+                    "rsx type s", "clean", true);
+            vehicle2 = new Vehicle(2006, 100000,"acura",
+                    "rsx type s", "clean", true);
+            vehicles.listVehicle(vehicle);
+            vehicles.listVehicle(vehicle1);
+            vehicles.listVehicle(vehicle2);
 
-        Vehicle vehicle2 = new Vehicle(2006, 100000,"acura",
-                "rsx type s", "clean", true);
+            List<Vehicle> matches = vehicles.searchListings(2002, 2004,
+                    "acura", "rsx type s");
 
-        vehicles.listVehicle(vehicle);
-        vehicles.listVehicle(vehicle1);
-        vehicles.listVehicle(vehicle2);
+            assertEquals(2, matches.size());
+            assertEquals(vehicle, matches.get(0));
+            assertEquals(vehicle1, matches.get(1));
+        } catch (NegativeMileage negativeMileage) {
+            System.out.println("Mileage can not be negative...");
+        }
 
-        List<Vehicle> matches = vehicles.searchListings(2002, 2004,
-                "acura", "rsx type s");
-
-        assertEquals(2, matches.size());
-        assertEquals(vehicle, matches.get(0));
-        assertEquals(vehicle1, matches.get(1));
     }
 
     @Test
     void testSearchListingsCloseMatches() {
 
-        Vehicle vehicle1 = new Vehicle(2004, 100000,"acura",
-                "rsx type s", "clean", true);
+        Vehicle vehicle1 = null;
+        try {
+            vehicle1 = new Vehicle(2004, 100000,"acura",
+                    "rsx type s", "clean", true);
+            Vehicle vehicle2 = new Vehicle(2003, 100000,"honda",
+                    "civic", "clean", true);
 
-        Vehicle vehicle2 = new Vehicle(2003, 100000,"honda",
-                "civic", "clean", true);
-
-        Vehicle vehicle3 = new Vehicle(2003, 100000,"acura",
-                "tsx", "clean", true);
-
-        vehicles.listVehicle(vehicle);
-        vehicles.listVehicle(vehicle1);
-        vehicles.listVehicle(vehicle2);
-        vehicles.listVehicle(vehicle3);
+            Vehicle vehicle3 = new Vehicle(2003, 100000,"acura",
+                    "tsx", "clean", true);
+            vehicles.listVehicle(vehicle);
+            vehicles.listVehicle(vehicle1);
+            vehicles.listVehicle(vehicle2);
+            vehicles.listVehicle(vehicle3);
+        } catch (NegativeMileage negativeMileage) {
+            negativeMileage.printStackTrace();
+        }
 
         List<Vehicle> matches = vehicles.searchListings(2002, 2003,
                 "acura", "rsx type s");
@@ -120,8 +133,13 @@ public class VehiclesTest {
     @Test
     void testAllListingsToStringMulti() {
 
-        Vehicle vehicle1 = new Vehicle(2004, 100000,"acura",
-                "rsx type s", "clean", true);
+        Vehicle vehicle1 = null;
+        try {
+            vehicle1 = new Vehicle(2004, 100000,"acura",
+                    "rsx type s", "clean", true);
+        } catch (NegativeMileage negativeMileage) {
+            System.out.println("Mileage can not be negative...");
+        }
 
         vehicles.listVehicle(vehicle);
         vehicles.listVehicle(vehicle1);
@@ -152,8 +170,13 @@ public class VehiclesTest {
     @Test
     void testMyListingsToStringMulti() {
 
-        Vehicle vehicle1 = new Vehicle(2004, 100000,"acura",
-                "rsx type s", "clean", true);
+        Vehicle vehicle1 = null;
+        try {
+            vehicle1 = new Vehicle(2004, 100000,"acura",
+                    "rsx type s", "clean", true);
+        } catch (NegativeMileage negativeMileage) {
+            System.out.println("Mileage can not be negative...");
+        }
 
         vehicles.listVehicle(vehicle);
         vehicles.listVehicle(vehicle1);
@@ -174,8 +197,13 @@ public class VehiclesTest {
 
     @Test
     void testGetAllListings() {
-        Vehicle vehicle1 = new Vehicle(2004, 100000,"acura",
-                "rsx type s", "clean", true);
+        Vehicle vehicle1 = null;
+        try {
+            vehicle1 = new Vehicle(2004, 100000,"acura",
+                    "rsx type s", "clean", true);
+        } catch (NegativeMileage negativeMileage) {
+            System.out.println("Mileage can not be negative...");
+        }
 
         vehicles.listVehicle(vehicle);
         vehicles.listVehicle(vehicle1);

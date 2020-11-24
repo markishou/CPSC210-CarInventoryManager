@@ -1,5 +1,6 @@
 package persistance;
 
+import exceptions.NegativeMileage;
 import model.Vehicle;
 import model.Vehicles;
 import org.junit.jupiter.api.Test;
@@ -45,10 +46,14 @@ public class JsonWriterTest extends JsonTest{
     void testWriterGeneralVehicles() {
         try {
             Vehicles vehicles = new Vehicles();
-            vehicles.listVehicle(new Vehicle(2002, 190000, "acura",
-                    "rsx type s", "clean", true));
-            vehicles.listVehicle(new Vehicle(2004, 100000, "acura",
-                    "rsx type s", "clean", true));
+            try {
+                vehicles.listVehicle(new Vehicle(2002, 190000, "acura",
+                        "rsx type s", "clean", true));
+                vehicles.listVehicle(new Vehicle(2004, 100000, "acura",
+                        "rsx type s", "clean", true));
+            } catch (NegativeMileage negativeMileage) {
+                negativeMileage.printStackTrace();
+            }
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralVehicles.json");
             writer.open();
             writer.write(vehicles);

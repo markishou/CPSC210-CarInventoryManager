@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.NegativeMileage;
 import model.Vehicle;
 import model.Vehicles;
 import persistance.JsonReader;
@@ -63,12 +64,17 @@ public class CarInventoryApp {
 
         carInventory = new Vehicles();
 
-        listedCar = new Vehicle(2002, 190000, "acura",
-                "rsx type s", "clean", true);
-        listedCar2 = new Vehicle(2004, 100000, "acura",
-                "rsx type s", "clean", false);
-        listedCar3 = new Vehicle(2002, 80000, "nissan",
-                "silvia s15", "clean", true);
+        try {
+            listedCar = new Vehicle(2002, 190000, "acura",
+                    "rsx type s", "clean", true);
+            listedCar2 = new Vehicle(2004, 100000, "acura",
+                    "rsx type s", "clean", false);
+            listedCar3 = new Vehicle(2002, 80000, "nissan",
+                    "silvia s15", "clean", true);
+        } catch (NegativeMileage negativeMileage) {
+            System.out.println("Mileage can not be negative");
+        }
+
 
         carInventory.listToAllListings(listedCar);
         carInventory.listToAllListings(listedCar2);
@@ -170,15 +176,17 @@ public class CarInventoryApp {
         System.out.println("Either 'clean' or 'rebuilt'");
         String title = s.nextLine();
 
-        System.out.println("Is the car modified: ");
-        System.out.println("\t1 -> yes");
-        System.out.println("\tAny char -> no");
+        System.out.println("Is the car modified: " + "\t1 -> yes" + "\tAny char -> no");
         boolean stock;
         String command = input.next();
         stock = processStockOrNot(command);
 
-        newListing = new Vehicle(year, odometer, manufacturer, model, title, stock);
-        carInventory.listVehicle(newListing);
+        try {
+            newListing = new Vehicle(year, odometer, manufacturer, model, title, stock);
+            carInventory.listVehicle(newListing);
+        } catch (NegativeMileage negativeMileage) {
+            System.out.println("Mileage can not be negative...");
+        }
     }
 
     // EFFECTS: prints out the users listings
@@ -233,6 +241,8 @@ public class CarInventoryApp {
             System.out.println("Loaded your listings from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
+        } catch (NegativeMileage nm) {
+            System.out.println("Mileage can not be negative...");
         }
     }
 
