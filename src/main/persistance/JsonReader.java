@@ -24,7 +24,7 @@ public class JsonReader {
     }
 
     // EFFECTS: reads Vehicles from file and returns it; throws IOException if an error occurs reading data from file
-    public Vehicles read() throws IOException {
+    public Vehicles read() throws IOException, NegativeMileage {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseVehicles(jsonObject);
@@ -42,7 +42,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parses Vehicles from JSON object and returns it
-    private Vehicles parseVehicles(JSONObject jsonObject) {
+    private Vehicles parseVehicles(JSONObject jsonObject) throws NegativeMileage {
         Vehicles vehicles = new Vehicles();
         addVehicles(vehicles, jsonObject);
         return vehicles;
@@ -50,7 +50,7 @@ public class JsonReader {
 
     // MODIFIES: vehicles
     // EFFECTS: parses vehicles from JSON object and adds them to list of vehicles
-    private void addVehicles(Vehicles vehicles, JSONObject jsonObject) {
+    private void addVehicles(Vehicles vehicles, JSONObject jsonObject) throws NegativeMileage {
         JSONArray jsonArray = jsonObject.getJSONArray("vehicles");
         for (Object json : jsonArray) {
             JSONObject nextThingy = (JSONObject) json;
@@ -60,7 +60,7 @@ public class JsonReader {
 
     // MODIFIES: vehicles
     // EFFECTS: parses vehicle from JSON object and adds it to vehicles
-    private void addVehicle(Vehicles vehicles, JSONObject jsonObject) {
+    private void addVehicle(Vehicles vehicles, JSONObject jsonObject) throws NegativeMileage {
 
         int year = jsonObject.getInt("year");
         int odometer = jsonObject.getInt("odometer");
@@ -69,13 +69,9 @@ public class JsonReader {
         String title = jsonObject.getString("title");
         boolean stock = jsonObject.getBoolean("stock");
         Vehicle v;
+        v = new Vehicle(year,odometer,manufacturer,model,title,stock);
+        vehicles.listVehicle(v);
 
-        try {
-            v = new Vehicle(year,odometer,manufacturer,model,title,stock);
-            vehicles.listVehicle(v);
-        } catch (NegativeMileage negativeMileage) {
-            System.out.println("Mileage can not be negative...");
-        }
     }
 
 }

@@ -1,5 +1,6 @@
 package persistance;
 
+import exceptions.NegativeMileage;
 import model.Vehicle;
 import model.Vehicles;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,8 @@ public class JsonReaderTest extends JsonTest{
             fail("IOException expected");
         } catch (IOException e) {
             // pass
+        } catch (NegativeMileage nm) {
+            fail("wrong exception");
         }
     }
 
@@ -31,6 +34,8 @@ public class JsonReaderTest extends JsonTest{
             Vehicles vehicles = reader.read();
             assertEquals(0, vehicles.getMyListingsSize());
         } catch (IOException e){
+            fail("exception was thrown");
+        } catch (NegativeMileage nm) {
             fail("exception was thrown");
         }
     }
@@ -48,6 +53,8 @@ public class JsonReaderTest extends JsonTest{
                     "rsx type s", "clean", true, myLists.get(1));
         } catch (IOException e){
             fail("exception was thrown");
+        } catch (NegativeMileage nm) {
+            fail("exception was thrown");
         }
     }
 
@@ -63,8 +70,10 @@ public class JsonReaderTest extends JsonTest{
             sameVehicle(2004, 100000, "acura",
                     "rsx type s", "clean", true, myLists.get(1));
             fail();
-        } catch (IOException e){
-            // success
+        } catch (NegativeMileage nm){
+            //pass
+        } catch (IOException e) {
+            // pass
         }
     }
 }

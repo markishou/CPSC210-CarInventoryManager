@@ -1,5 +1,6 @@
 package persistance;
 
+import com.sun.tools.corba.se.idl.constExpr.Negative;
 import exceptions.NegativeMileage;
 import model.Vehicle;
 import model.Vehicles;
@@ -38,6 +39,8 @@ public class JsonWriterTest extends JsonTest{
             assertEquals(0, vehicles.getMyListingsSize());
         } catch (IOException e) {
             fail("exception should not have been thrown");
+        } catch (NegativeMileage nm) {
+            fail("exception should not have been thrown");
         }
 
     }
@@ -69,6 +72,8 @@ public class JsonWriterTest extends JsonTest{
                     "rsx type s", "clean", true, vehicleList.get(1));
 
         } catch (IOException e) {
+            fail("exception was thrown");
+        } catch (NegativeMileage nm) {
             fail("exception was thrown");
         }
     }
