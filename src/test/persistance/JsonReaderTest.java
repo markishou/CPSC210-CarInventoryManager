@@ -51,6 +51,20 @@ public class JsonReaderTest extends JsonTest{
         }
     }
 
-
-
+    @Test
+    void testReaderGeneralVehiclesNegativeMileage() {
+        JsonReader reader = new JsonReader("./data/testReaderNegativeMileage.json");
+        try {
+            Vehicles vehicles = reader.read();
+            List<Vehicle> myLists = vehicles.getMyListings();
+            assertEquals(2, myLists.size());
+            sameVehicle(2002, 190000, "acura",
+                    "rsx type s", "clean", true, myLists.get(0));
+            sameVehicle(2004, 100000, "acura",
+                    "rsx type s", "clean", true, myLists.get(1));
+            fail();
+        } catch (IOException e){
+            // success
+        }
+    }
 }

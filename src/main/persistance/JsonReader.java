@@ -68,13 +68,14 @@ public class JsonReader {
         String model = jsonObject.getString("model");
         String title = jsonObject.getString("title");
         boolean stock = jsonObject.getBoolean("stock");
-        Vehicle v = null;
+        Vehicle v;
+
         try {
             v = new Vehicle(year,odometer,manufacturer,model,title,stock);
+            vehicles.listVehicle(v);
         } catch (NegativeMileage negativeMileage) {
             System.out.println("Mileage can not be negative...");
         }
-        vehicles.listVehicle(v);
     }
 
 }
