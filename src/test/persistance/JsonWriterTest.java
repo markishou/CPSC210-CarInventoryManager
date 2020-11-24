@@ -1,6 +1,5 @@
 package persistance;
 
-import com.sun.tools.corba.se.idl.constExpr.Negative;
 import exceptions.NegativeMileage;
 import model.Vehicle;
 import model.Vehicles;
